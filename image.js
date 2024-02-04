@@ -8,7 +8,7 @@ export async function imageResize(url, width, height, quality, fit) {
       img.contain(Math.floor(width), Math.floor(height));
       break;
     case "cover":
-      img.color(Math.floor(width), Math.floor(height));
+      img.cover(Math.floor(width), Math.floor(height));
       break;
     case "outside":
       img.resize(Math.floor(width), Jimp.AUTO);
