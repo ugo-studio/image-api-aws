@@ -12,6 +12,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@silvia-odwyer/photon-node": "^0.3.3",
     "jimp": "^0.22.10"
   }
 }

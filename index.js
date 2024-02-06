@@ -1,8 +1,11 @@
-import { imageResize } from "./image.js";
+import { imageResize, imageResizeJimp } from "./image.js";
 
 export const handler = async (event) => {
   const path = event.rawPath;
-  const data = JSON.parse(atob(path.replace("/", "") || btoa("{}")));
+  const useJimp = path.startsWith("/jimp/");
+  const data = JSON.parse(
+    atob(path.replace("/jimp", "").replace("/", "") || btoa("{}"))
+  );
   const image = data.src;
   const fit = data.f;
   const width = data.w || 500;
@@ -14,7 +17,13 @@ export const handler = async (event) => {
       body: JSON.stringify({ msg: "image src not found" }),
     };
   }
-  data.res = await imageResize(image, width, height, quality, fit);
+  data.res = await (useJimp ? imageResizeJimp : imageResize)(
+    image,
+    width,
+    height,
+    quality,
+    fit
+  );
   const response = {
     statusCode: 200,
     body: JSON.stringify(data),
